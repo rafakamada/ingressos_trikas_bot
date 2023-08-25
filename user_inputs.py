@@ -1,12 +1,12 @@
 # url da página de compra do jogo
-url =
+URL =
 
 # lista com os setores em ordem de preferência
-grandstand_sections = ["ARQUIBANCADA BITSO LESTE", "ARQUIBANCADA OESTE", "ARQUIBANCADA NORTE", "ARQUIBANCADA SUL"]
+GRANDSTAND_SECTIONS = ["ARQUIBANCADA BITSO LESTE", "ARQUIBANCADA OESTE", "ARQUIBANCADA NORTE", "ARQUIBANCADA SUL"]
 
 #credenciais
-username =
-pasword =
+USERNAME =
+PASSWORD =
 
-# número de convidados
-guests =
+# número de convidados 
+NUMBER_OF_GUESTS =
