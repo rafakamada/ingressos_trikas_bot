@@ -51,7 +51,7 @@ class SeleniumDriver:
         section_was_found = False
         while not section_was_found:
             try:
-                tab_button = WebDriverWait(self.driver, timeout=random.randrange(5, 10)).until(
+                tab_button = WebDriverWait(self.driver, timeout=random.randrange(5, 10)).until(  # esse demora mesmo
                     EC.element_to_be_clickable((By.XPATH, f"//button[@title='{section_name}']"))
                 )
 
@@ -104,7 +104,8 @@ class SeleniumDriver:
 
             return True
         except:
-            print("erro ao adicionar adicionar (provavelmente esgotou). tentando outro setor.")
+            print(
+                "erro ao adicionar adicionar (provavelmente tá dizendo que esgotou depois de mostrar como disponível antes). tentando outro setor.")
             self.driver.refresh()
 
     def log_in(self, user: str, password: str):
