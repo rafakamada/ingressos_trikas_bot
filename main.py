@@ -1,7 +1,8 @@
+from playsound import playsound
+
 from selenium_driver import SeleniumDriver
 from user_inputs import URL, CPF, GRANDSTAND_SECTIONS, NUMBER_OF_GUESTS, USERNAME, PASSWORD, IS_SCHEDULED, \
     SCHEDULED_TIMESTAMP
-from playsound import playsound
 
 driver = SeleniumDriver(URL, IS_SCHEDULED, SCHEDULED_TIMESTAMP)
 
