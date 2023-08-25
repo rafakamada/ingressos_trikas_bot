@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class SeleniumDriver:
-    def __init__(self, url):
+    def __init__(self, url: str, is_scheduled: bool = False, scheduled_start: datetime = None):
         chrome_options = Options()
         chrome_options.add_experimental_option("detach", True)  # pra não fechar o browser quando conseguir
         chrome_options.add_argument("--incognito")
@@ -19,6 +19,9 @@ class SeleniumDriver:
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get(url)
         self.driver.maximize_window()
+        if is_scheduled:
+            time_to_wait = scheduled_start - datetime.now()
+            time.sleep(time_to_wait.seconds)
 
     def accept_cookies(self):
         try:
