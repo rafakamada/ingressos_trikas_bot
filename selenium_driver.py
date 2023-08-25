@@ -21,7 +21,8 @@ class SeleniumDriver:
         self.driver.maximize_window()
         if is_scheduled:
             time_to_wait = scheduled_start - datetime.now()
-            time.sleep(time_to_wait.seconds)
+            if time_to_wait.seconds < 80000:  # não fica negativo
+                time.sleep(time_to_wait.seconds)
 
     def accept_cookies(self):
         try:

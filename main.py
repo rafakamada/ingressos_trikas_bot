@@ -1,6 +1,7 @@
 from selenium_driver import SeleniumDriver
 from user_inputs import URL, CPF, GRANDSTAND_SECTIONS, NUMBER_OF_GUESTS, USERNAME, PASSWORD, IS_SCHEDULED, \
     SCHEDULED_TIMESTAMP
+from playsound import playsound
 
 driver = SeleniumDriver(URL, IS_SCHEDULED, SCHEDULED_TIMESTAMP)
 
@@ -34,4 +35,4 @@ while not success:
 
     success = driver.log_in(USERNAME, PASSWORD)
 
-#  success = True
+playsound('success_song.mp3')
