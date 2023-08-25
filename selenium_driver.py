@@ -109,7 +109,7 @@ class SeleniumDriver:
             return True
         except:
             print(
-                "erro ao adicionar adicionar (provavelmente tá dizendo que esgotou depois de mostrar como disponível antes). tentando outro setor.")
+                "erro ao adicionar adicionar (provavelmente esgotou). tentando outro setor.")
             self.driver.refresh()
 
     def log_in(self, user: str, password: str):
@@ -128,6 +128,6 @@ class SeleniumDriver:
                 return True
 
         except:
-            print("deu ruim. tentando de novo...")
+            print("deu ruim. deve estar dizendo que o produto não está disponível. tentando de novo...")
             self.driver.get(self.main_url)
             return False
