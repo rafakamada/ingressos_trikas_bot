@@ -45,10 +45,13 @@ class SeleniumDriver:
 
             cpf_field.submit()
 
-            # self.driver.implicitly_wait(15)
+            self.wait_and_find_element(method=By.XPATH,
+                                       timeout=15,  # esse pode demorar
+                                       element_id_or_xpath="//button[@data-cy='promocode-button']")
             print("cpf ok")
 
             return True
+
         except:
             self.driver.refresh()
             print("cpf deu ruim")
