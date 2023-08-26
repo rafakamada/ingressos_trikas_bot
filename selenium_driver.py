@@ -27,7 +27,7 @@ class SeleniumDriver:
     def accept_cookies(self):
         try:
             cookies_button = self.wait_and_find_element(method=By.XPATH,
-                                                        timeout=random.randrange(2, 5),
+                                                        timeout=random.randrange(1, 2),
                                                         element_id_or_xpath="//a[@class='cc-btn cc-dismiss']")
 
             cookies_button.click()
@@ -38,7 +38,7 @@ class SeleniumDriver:
     def input_cpf(self, cpf):
         try:
             cpf_field = self.wait_and_find_element(method=By.ID,
-                                                   timeout=random.randrange(2, 5),
+                                                   timeout=random.randrange(1, 2),
                                                    element_id_or_xpath="inputPromocode")
 
             cpf_field.send_keys(cpf)
@@ -63,7 +63,7 @@ class SeleniumDriver:
         while not section_was_found:
             try:
                 tab_button = self.wait_and_find_element(method=By.XPATH,
-                                                        timeout=random.randrange(2, 5),
+                                                        timeout=random.randrange(1, 2),
                                                         element_id_or_xpath=f"//button[@title='{section_name}']")
 
                 tab_button.click()
@@ -72,7 +72,7 @@ class SeleniumDriver:
             except:
                 try:
                     next_arrow_button = self.wait_and_find_element(method=By.ID,
-                                                                   timeout=random.randrange(1, 3),
+                                                                   timeout=random.randrange(1, 2),
                                                                    element_id_or_xpath="sector-next")
 
                     next_arrow_button.click()
@@ -84,39 +84,39 @@ class SeleniumDriver:
     def add_tickets_to_cart(self, number_of_guests: int) -> bool:
         try:
             add_main_ticket_element = self.wait_and_find_element(method=By.XPATH,
-                                                                 timeout=random.randrange(2, 5),
+                                                                 timeout=random.randrange(1, 2),
                                                                  element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i")
             add_main_ticket_element.click()
 
             for i in range(number_of_guests):
                 add_guest_element = self.wait_and_find_element(method=By.XPATH,
-                                                               timeout=random.randrange(2, 5),
+                                                               timeout=random.randrange(1, 2),
                                                                element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i")
 
                 add_guest_element.click()
 
             # continuar
             continue_button = self.wait_and_find_element(method=By.ID,
-                                                         timeout=random.randrange(2, 5),
+                                                         timeout=random.randrange(1, 2),
                                                          element_id_or_xpath="buttonContinue")
 
             self.driver.execute_script("arguments[0].click();", continue_button)
 
             review_continue_button = self.wait_and_find_element(method=By.XPATH,
-                                                                timeout=random.randrange(2, 5),
+                                                                timeout=random.randrange(1, 2),
                                                                 element_id_or_xpath="//button[@data-cy='review-button-continue']")
 
             review_continue_button.click()
 
             # terms and conditions
             checkbox = self.wait_and_find_element(method=By.ID,
-                                                  timeout=random.randrange(2, 5),
+                                                  timeout=random.randrange(1, 2),
                                                   element_id_or_xpath="tuPpEvent")
 
             checkbox.click()
 
             review_continue_button = self.wait_and_find_element(method=By.XPATH,
-                                                                timeout=random.randrange(2, 5),
+                                                                timeout=random.randrange(1, 2),
                                                                 element_id_or_xpath="//button[@data-cy='review-button-continue']")
 
             review_continue_button.click()
