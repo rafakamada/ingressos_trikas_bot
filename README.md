@@ -20,7 +20,7 @@ talaricagem, estelionato, etc)**
 
 ## Requisitos
 
-- Plano de sócio torcedor para poder inserir o CPF (ou modificar o script pra poder comprar sem ser sócio)
+- Plano de sócio torcedor para poder inserir o CPF
 - Conta no total acesso
 
 ## Como usar
