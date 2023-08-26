@@ -4,13 +4,19 @@ Script em Python usando Selenium para comprar ingressos para os jogos do Trikas
 
 ## Introdução
 
-Está cada vez mais difícil comprar ingressos para os jogos do SPFC, mesmo para os sócio-torcedores. Pra piorar, o site é uma porcaria. Esse programa nos poupa de fazer manualmente o loop de atualizar e tentar inserir ingressos no carrinho ou ficar a espreita no site esperando dar o horário de liberação dos ingressos para a prioridade do seu plano.
+Está cada vez mais difícil comprar ingressos para os jogos do SPFC, mesmo para os sócio-torcedores. Pra piorar, o site é
+uma porcaria. Esse programa nos poupa de fazer manualmente o loop de atualizar e tentar inserir ingressos no carrinho ou
+ficar a espreita no site esperando dar o horário de liberação dos ingressos para a prioridade do seu plano.
 
 ## Disclaimer
 
-Fiz esse programa na intenção de ajudar a mim mesmo e a meus amigos a conseguir ingressos para os jogos, dada a dificuldade mencionada logo acima.
-O código está aberto porque pode ajudar outras pessoas a ter êxito nessa tarefa, bem como atrair contribuições de interessados em melhorar e manter o código.
-**Não me responsabilizo em caso de uso dessa aplicação para fins fraudulentos (como cambismo, agiotagem, prevaricação, talaricagem, estelionato, etc)**
+Fiz esse programa na intenção de ajudar a mim mesmo e a meus amigos a conseguir ingressos para os jogos, dada a
+dificuldade mencionada logo acima.
+O código está aberto porque pode ajudar outras pessoas a ter êxito nessa tarefa, bem como atrair contribuições de
+interessados em melhorar e manter o código.
+
+**Não me responsabilizo em caso de uso dessa aplicação para fins fraudulentos (como cambismo, agiotagem, prevaricação,
+talaricagem, estelionato, etc)**
 
 ## Requisitos
 
