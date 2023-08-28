@@ -128,6 +128,16 @@ class SeleniumDriver:
             self.driver.refresh()
 
     def log_in(self, user: str, password: str):
+        # caso esteja "indisponível":
+        try:
+            WebDriverWait(self.driver, timeout=5).until(
+                EC.presence_of_element_located((By.ID, "swal2-html-container")))  # dialog box de produto indisponível
+            print("deu ruim. deve estar dizendo que o produto não está disponível. tentando de novo...")
+            self.driver.get(self.main_url)
+            return False
+        except:
+            pass
+
         try:
             username_element = self.wait_and_find_element(method=By.ID,
                                                           timeout=15,
@@ -144,9 +154,11 @@ class SeleniumDriver:
             if "payment" in self.driver.current_url:
                 print("sucesso")
                 return True
+            else:
+                self.driver.get(self.main_url)
+                return False
 
         except:
-            print("deu ruim. deve estar dizendo que o produto não está disponível. tentando de novo...")
             self.driver.get(self.main_url)
             return False
 
