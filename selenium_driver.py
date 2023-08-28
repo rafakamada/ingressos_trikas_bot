@@ -26,9 +26,9 @@ class SeleniumDriver:
 
     def accept_cookies(self):
         try:
-            cookies_button = self.wait_and_find_element(method=By.XPATH,
-                                                        timeout=random.randrange(1, 2),
-                                                        element_id_or_xpath="//a[@class='cc-btn cc-dismiss']")
+            cookies_button = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                  timeout=random.randrange(1, 2),
+                                                                  element_id_or_xpath="//a[@class='cc-btn cc-dismiss']")
 
             cookies_button.click()
             print("cookies aceitos")
@@ -37,17 +37,17 @@ class SeleniumDriver:
 
     def input_cpf(self, cpf):
         try:
-            cpf_field = self.wait_and_find_element(method=By.ID,
-                                                   timeout=random.randrange(1, 2),
-                                                   element_id_or_xpath="inputPromocode")
+            cpf_field = self.wait_and_find_clickable_element(method=By.ID,
+                                                             timeout=random.randrange(1, 2),
+                                                             element_id_or_xpath="inputPromocode")
 
             cpf_field.send_keys(cpf)
 
             cpf_field.submit()
 
-            self.wait_and_find_element(method=By.XPATH,
-                                       timeout=15,  # esse pode demorar
-                                       element_id_or_xpath="//button[@data-cy='promocode-button']")
+            self.wait_and_find_clickable_element(method=By.XPATH,
+                                                 timeout=15,  # esse pode demorar
+                                                 element_id_or_xpath="//button[@data-cy='promocode-button']")
             print("cpf ok")
 
             return True
@@ -58,22 +58,23 @@ class SeleniumDriver:
             return False
 
     def go_to_section_tab(self, section_name):
+
         print(f"procurando {section_name}")
         section_was_found = False
         while not section_was_found:
             try:
-                tab_button = self.wait_and_find_element(method=By.XPATH,
-                                                        timeout=random.randrange(1, 2),
-                                                        element_id_or_xpath=f"//button[@title='{section_name}']")
+                tab_button = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                  timeout=random.randrange(1, 2),
+                                                                  element_id_or_xpath=f"//button[@title='{section_name}']")
 
                 tab_button.click()
                 section_was_found = True
                 return section_was_found
             except:
                 try:
-                    next_arrow_button = self.wait_and_find_element(method=By.ID,
-                                                                   timeout=random.randrange(1, 2),
-                                                                   element_id_or_xpath="sector-next")
+                    next_arrow_button = self.wait_and_find_clickable_element(method=By.ID,
+                                                                             timeout=random.randrange(1, 2),
+                                                                             element_id_or_xpath="sector-next")
 
                     next_arrow_button.click()
                 except:
@@ -83,41 +84,41 @@ class SeleniumDriver:
 
     def add_tickets_to_cart(self, number_of_guests: int) -> bool:
         try:
-            add_main_ticket_element = self.wait_and_find_element(method=By.XPATH,
-                                                                 timeout=random.randrange(1, 2),
-                                                                 element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i")
+            add_main_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                           timeout=random.randrange(1, 2),
+                                                                           element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i")
             add_main_ticket_element.click()
 
             for i in range(number_of_guests):
-                add_guest_element = self.wait_and_find_element(method=By.XPATH,
-                                                               timeout=random.randrange(1, 2),
-                                                               element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i")
+                add_guest_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                         timeout=random.randrange(1, 2),
+                                                                         element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i")
 
                 add_guest_element.click()
 
             # continuar
-            continue_button = self.wait_and_find_element(method=By.ID,
-                                                         timeout=random.randrange(1, 2),
-                                                         element_id_or_xpath="buttonContinue")
+            continue_button = self.wait_and_find_clickable_element(method=By.ID,
+                                                                   timeout=random.randrange(1, 2),
+                                                                   element_id_or_xpath="buttonContinue")
 
             self.driver.execute_script("arguments[0].click();", continue_button)
 
-            review_continue_button = self.wait_and_find_element(method=By.XPATH,
-                                                                timeout=random.randrange(1, 2),
-                                                                element_id_or_xpath="//button[@data-cy='review-button-continue']")
+            review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                          timeout=random.randrange(1, 2),
+                                                                          element_id_or_xpath="//button[@data-cy='review-button-continue']")
 
             review_continue_button.click()
 
             # terms and conditions
-            checkbox = self.wait_and_find_element(method=By.ID,
-                                                  timeout=random.randrange(1, 2),
-                                                  element_id_or_xpath="tuPpEvent")
+            checkbox = self.wait_and_find_clickable_element(method=By.ID,
+                                                            timeout=random.randrange(1, 2),
+                                                            element_id_or_xpath="tuPpEvent")
 
             checkbox.click()
 
-            review_continue_button = self.wait_and_find_element(method=By.XPATH,
-                                                                timeout=random.randrange(1, 2),
-                                                                element_id_or_xpath="//button[@data-cy='review-button-continue']")
+            review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                          timeout=random.randrange(1, 2),
+                                                                          element_id_or_xpath="//button[@data-cy='review-button-continue']")
 
             review_continue_button.click()
 
@@ -130,23 +131,24 @@ class SeleniumDriver:
     def log_in(self, user: str, password: str):
         # caso esteja "indisponível":
         try:
-            WebDriverWait(self.driver, timeout=5).until(
-                EC.presence_of_element_located((By.ID, "swal2-html-container")))  # dialog box de produto indisponível
-            print("deu ruim. deve estar dizendo que o produto não está disponível. tentando de novo...")
+            self.wait_and_find_element_to_be_available(method=By.ID,
+                                                       timeout=5,
+                                                       element_id_or_xpath="swal2-html-container")  # dialog box de produto indisponível
+
             self.driver.get(self.main_url)
             return False
         except:
             pass
 
         try:
-            username_element = self.wait_and_find_element(method=By.ID,
-                                                          timeout=15,
-                                                          element_id_or_xpath="userLogin")
+            username_element = self.wait_and_find_clickable_element(method=By.ID,
+                                                                    timeout=15,
+                                                                    element_id_or_xpath="userLogin")
             username_element.send_keys(user)
 
-            password_element = self.wait_and_find_element(method=By.ID,
-                                                          timeout=5,
-                                                          element_id_or_xpath="password")
+            password_element = self.wait_and_find_clickable_element(method=By.ID,
+                                                                    timeout=5,
+                                                                    element_id_or_xpath="password")
             password_element.send_keys(password)
 
             password_element.submit()
@@ -162,6 +164,10 @@ class SeleniumDriver:
             self.driver.get(self.main_url)
             return False
 
-    def wait_and_find_element(self, method, timeout, element_id_or_xpath):
+    def wait_and_find_clickable_element(self, method, timeout, element_id_or_xpath):
         return WebDriverWait(self.driver, timeout=timeout).until(
             EC.element_to_be_clickable((method, element_id_or_xpath)))
+
+    def wait_and_find_element_to_be_available(self, method, timeout, element_id_or_xpath):
+        return WebDriverWait(self.driver, timeout=timeout).until(
+            EC.presence_of_element_located((method, element_id_or_xpath)))
