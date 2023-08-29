@@ -59,17 +59,25 @@ class SeleniumDriver:
 
     def go_to_section_tab(self, section_name):
 
+        section_is_available = self.check_if_section_is_available(section_name)
+
         print(f"procurando {section_name}")
-        section_was_found = False
-        while not section_was_found:
+
+        if not section_is_available:
+            print("setor não disponível. tentando o próximo...")
+            self.driver.refresh()
+            return False
+
+        section_tab_was_found = False
+        while not section_tab_was_found:
             try:
                 tab_button = self.wait_and_find_clickable_element(method=By.XPATH,
                                                                   timeout=random.randrange(1, 2),
                                                                   element_id_or_xpath=f"//button[@title='{section_name}']")
 
                 tab_button.click()
-                section_was_found = True
-                return section_was_found
+                section_tab_was_found = True
+                return section_tab_was_found
             except:
                 try:
                     next_arrow_button = self.wait_and_find_clickable_element(method=By.ID,
@@ -162,6 +170,18 @@ class SeleniumDriver:
 
         except:
             self.driver.get(self.main_url)
+            return False
+
+    def check_if_section_is_available(self, section_name: str) -> bool:
+        available_section_divs = self.driver.find_elements(By.XPATH,
+                                                           "//app-product-item")
+
+        desired_section_div = list(
+            filter(lambda x: (section_name in x.text) and ('ESGOTADO' not in x.text.upper()), available_section_divs))
+
+        if len(desired_section_div) > 0:
+            return True
+        else:
             return False
 
     def wait_and_find_clickable_element(self, method, timeout, element_id_or_xpath):
