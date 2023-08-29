@@ -1,3 +1,4 @@
+import logging
 import random
 import time
 from datetime import datetime
@@ -7,6 +8,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+
+FORMAT = '%(asctime)s %(message)s'
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class SeleniumDriver:
@@ -22,7 +26,9 @@ class SeleniumDriver:
         if is_scheduled:
             time_to_wait = scheduled_start - datetime.now()
             if scheduled_start > datetime.now():
+                logging.info(f"aguardando horário agendado: {scheduled_start}")
                 time.sleep(time_to_wait.seconds)
+                logging.info("AUTORIZA O ARBITRO")
 
     def accept_cookies(self):
         try:
@@ -31,7 +37,7 @@ class SeleniumDriver:
                                                                   element_id_or_xpath="//a[@class='cc-btn cc-dismiss']")
 
             cookies_button.click()
-            print("cookies aceitos")
+            logging.info("cookies aceitos")
         except:
             pass
 
@@ -48,18 +54,18 @@ class SeleniumDriver:
             self.wait_and_find_clickable_element(method=By.XPATH,
                                                  timeout=15,  # esse pode demorar
                                                  element_id_or_xpath="//button[@data-cy='promocode-button']")
-            print("cpf ok")
+            logging.info("cpf ok")
 
             return True
 
         except:
             self.driver.refresh()
-            print("cpf deu ruim")
+            logging.info("cpf deu ruim")
             return False
 
     def go_to_section_tab(self, section_name):
 
-        print(f"procurando {section_name}")
+        logging.info(f"procurando {section_name}")
 
         section_tab_was_found = False
         while not section_tab_was_found:
@@ -79,11 +85,14 @@ class SeleniumDriver:
 
                     next_arrow_button.click()
                 except:
-                    print("setor não encontrado. tentando o próximo...")
+                    logging.info("setor não encontrado. tentando o próximo...")
                     self.driver.refresh()
                     return False
 
     def add_tickets_to_cart(self, number_of_guests: int) -> bool:
+
+        logging.info("tentando adicionar ingressos ao carrinho")
+
         try:
             add_main_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
                                                                            timeout=random.randrange(1, 2),
@@ -125,7 +134,7 @@ class SeleniumDriver:
 
             return True
         except:
-            print(
+            logging.info(
                 "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
             self.driver.refresh()
 
@@ -155,7 +164,7 @@ class SeleniumDriver:
             password_element.submit()
 
             if "payment" in self.driver.current_url:
-                print("sucesso")
+                logging.info("sucesso")
                 return True
             else:
                 self.driver.get(self.main_url)
@@ -181,7 +190,7 @@ class SeleniumDriver:
         for section in desired_sections:
             if self.check_if_section_is_available(section):
                 return section
-        print("nenhum dos setores desejados está disponível")
+        logging.info("nenhum dos setores desejados está disponível")
         self.driver.refresh()
         return "none"
 
