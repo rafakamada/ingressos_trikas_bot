@@ -59,9 +59,9 @@ class SeleniumDriver:
 
     def go_to_section_tab(self, section_name):
 
-        section_is_available = self.check_if_section_is_available(section_name)
-
         print(f"procurando {section_name}")
+
+        section_is_available = self.check_if_section_is_available(section_name)
 
         if not section_is_available:
             print("setor não disponível. tentando o próximo...")
