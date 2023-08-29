@@ -61,13 +61,6 @@ class SeleniumDriver:
 
         print(f"procurando {section_name}")
 
-        section_is_available = self.check_if_section_is_available(section_name)
-
-        if not section_is_available:
-            print("setor não disponível. tentando o próximo...")
-            self.driver.refresh()
-            return False
-
         section_tab_was_found = False
         while not section_tab_was_found:
             try:
@@ -183,6 +176,14 @@ class SeleniumDriver:
             return True
         else:
             return False
+
+    def define_target_section(self, desired_sections: list[str]) -> str:
+        for section in desired_sections:
+            if self.check_if_section_is_available(section):
+                return section
+        print("nenhum dos setores desejados está disponível")
+        self.driver.refresh()
+        return "none"
 
     def wait_and_find_clickable_element(self, method, timeout, element_id_or_xpath):
         return WebDriverWait(self.driver, timeout=timeout).until(
