@@ -89,54 +89,72 @@ class SeleniumDriver:
                     self.driver.refresh()
                     return False
 
-    def add_tickets_to_cart(self, number_of_guests: int) -> bool:
+    def add_tickets_to_cart(self, number_of_guests: int, is_without_discount: bool) -> bool:
 
         logging.info("tentando adicionar ingressos ao carrinho")
+        if not is_without_discount:  # baita gambiarra por enquanto
+            try:
+                self.add_membership_tickets(number_of_guests)
+            except:
+                logging.info(
+                    "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
+                self.driver.refresh()
+                return False
+        else:
+            try:
+                self.add_tickets_without_discount(number_of_guests)
+            except:
+                logging.info(
+                    "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
+                self.driver.refresh()
+                return False
 
-        try:
-            add_main_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
-                                                                           timeout=random.randrange(1, 2),
-                                                                           element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i")
-            add_main_ticket_element.click()
-
-            for i in range(number_of_guests):
-                add_guest_element = self.wait_and_find_clickable_element(method=By.XPATH,
-                                                                         timeout=random.randrange(1, 2),
-                                                                         element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i")
-
-                add_guest_element.click()
-
-            # continuar
+                # continuar
             continue_button = self.wait_and_find_clickable_element(method=By.ID,
                                                                    timeout=random.randrange(1, 2),
                                                                    element_id_or_xpath="buttonContinue")
-
             self.driver.execute_script("arguments[0].click();", continue_button)
-
             review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
                                                                           timeout=random.randrange(1, 2),
                                                                           element_id_or_xpath="//button[@data-cy='review-button-continue']")
-
             review_continue_button.click()
-
             # terms and conditions
             checkbox = self.wait_and_find_clickable_element(method=By.ID,
                                                             timeout=random.randrange(1, 2),
                                                             element_id_or_xpath="tuPpEvent")
-
             checkbox.click()
-
             review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
                                                                           timeout=random.randrange(1, 2),
                                                                           element_id_or_xpath="//button[@data-cy='review-button-continue']")
-
             review_continue_button.click()
-
             return True
+
+    def add_tickets_without_discount(self, number_of_guests):
+        full_price_tickets_attempt_1 = "/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i"
+        full_price_tickets_attempt_2 = "/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i"
+
+        try:
+            add_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                      timeout=random.randrange(1, 2),
+                                                                      element_id_or_xpath=full_price_tickets_attempt_1)
         except:
-            logging.info(
-                "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
-            self.driver.refresh()
+            add_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                      timeout=random.randrange(1, 2),
+                                                                      element_id_or_xpath=full_price_tickets_attempt_2)
+        for i in range(number_of_guests + 1):
+            add_ticket_element.click()
+
+    def add_membership_tickets(self, number_of_guests):
+        add_main_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                       timeout=random.randrange(1, 2),
+                                                                       element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i")
+        add_main_ticket_element.click()
+        for i in range(number_of_guests):
+            add_guest_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                     timeout=random.randrange(1, 2),
+                                                                     element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i")
+
+            add_guest_element.click()
 
     def log_in(self, user: str, password: str):
         # caso esteja "indisponível":

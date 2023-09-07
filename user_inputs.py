@@ -4,18 +4,22 @@ from datetime import datetime
 URL = "https://cart.totalacesso.com/saopaulofcxlducopaconmebolsudamericana_31_08_23"
 
 # lista com os setores em ordem de preferência
-GRANDSTAND_SECTIONS = ["ARQUIBANCADA BITSO LESTE", "ARQUIBANCADA OESTE", "ARQUIBANCADA SUL"]
+SECTIONS_WITH_MEMBERSHIP_DISCOUNT = ["ARQUIBANCADA BITSO LESTE", "ARQUIBANCADA OESTE", "ARQUIBANCADA SUL",
+                                     "CADEIRA ESPECIAL LESTE"]
+
+SECTIONS_WITHOUT_DISCOUNT = ["ARQUIBANCADA NORTE", "CADEIRA SUPERIOR NORTE", "CADEIRA SUPERIOR SUL",
+                             "CADEIRA ESPECIAL OESTE"]
 
 # credenciais
-USERNAME = 
-PASSWORD = 
+USERNAME: str =
+PASSWORD: str =
 
 # cpf do sócio
-CPF: int = 
+CPF: int =
 
 # número de convidados
-NUMBER_OF_GUESTS = 1
+NUMBER_OF_GUESTS = 2
 
 # se quiser começar em um determinado horário
 IS_SCHEDULED = True
-SCHEDULED_TIMESTAMP = datetime(2023, 8, 24, 18, 00)
+SCHEDULED_TIMESTAMP = datetime(2023, 8, 28, 21, 59)
