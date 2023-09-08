@@ -110,24 +110,31 @@ class SeleniumDriver:
                 return False
 
         # continuar
-        continue_button = self.wait_and_find_clickable_element(method=By.ID,
-                                                               timeout=random.randrange(1, 2),
-                                                               element_id_or_xpath="buttonContinue")
-        self.driver.execute_script("arguments[0].click();", continue_button)
-        review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
-                                                                      timeout=random.randrange(1, 2),
-                                                                      element_id_or_xpath="//button[@data-cy='review-button-continue']")
-        review_continue_button.click()
-        # terms and conditions
-        checkbox = self.wait_and_find_clickable_element(method=By.ID,
-                                                        timeout=random.randrange(1, 2),
-                                                        element_id_or_xpath="tuPpEvent")
-        checkbox.click()
-        review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
-                                                                      timeout=random.randrange(1, 2),
-                                                                      element_id_or_xpath="//button[@data-cy='review-button-continue']")
-        review_continue_button.click()
-        return True
+        try:
+            continue_button = self.wait_and_find_clickable_element(method=By.ID,
+                                                                   timeout=random.randrange(1, 2),
+                                                                   element_id_or_xpath="buttonContinue")
+            self.driver.execute_script("arguments[0].click();", continue_button)
+            review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                          timeout=random.randrange(1, 2),
+                                                                          element_id_or_xpath="//button[@data-cy='review-button-continue']")
+            review_continue_button.click()
+            # terms and conditions
+            checkbox = self.wait_and_find_clickable_element(method=By.ID,
+                                                            timeout=random.randrange(1, 2),
+                                                            element_id_or_xpath="tuPpEvent")
+            checkbox.click()
+            review_continue_button = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                          timeout=random.randrange(1, 2),
+                                                                          element_id_or_xpath="//button[@data-cy='review-button-continue']")
+            review_continue_button.click()
+            return True
+
+        except:
+            logging.info(
+                "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
+            self.driver.refresh()
+            return False
 
     def add_tickets_without_discount(self, number_of_guests):
         full_price_tickets_attempt_1 = "/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i"
