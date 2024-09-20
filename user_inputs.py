@@ -1,7 +1,7 @@
 from datetime import datetime
 
 # url da página de compra do jogo (tem que ser aquela que começa com "cart.totacesso")
-URL = "https://cart.totalacesso.com/saopaulofcxlducopaconmebolsudamericana_31_08_23"
+URL = "https://cart.spfcticket.net/saopaulofcxinternacional_22_09"
 
 # lista com os setores em ordem de preferência
 SECTIONS_WITH_MEMBERSHIP_DISCOUNT = ["ARQUIBANCADA LESTE LACTA", "ARQUIBANCADA OESTE OURO BRANCO",
