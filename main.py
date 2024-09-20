@@ -22,7 +22,7 @@ while not success:
     if target_section_found == "none":
         continue
 
-    is_without_discount = target_section_found in SECTIONS_WITHOUT_DISCOUNT
+    is_without_discount = target_section_found not in SECTIONS_WITH_MEMBERSHIP_DISCOUNT
 
     target_section_tab_was_found = driver.go_to_section_tab(target_section_found)
 
