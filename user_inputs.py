@@ -4,11 +4,13 @@ from datetime import datetime
 URL = "https://cart.totalacesso.com/saopaulofcxlducopaconmebolsudamericana_31_08_23"
 
 # lista com os setores em ordem de preferência
-SECTIONS_WITH_MEMBERSHIP_DISCOUNT = ["ARQUIBANCADA BITSO LESTE", "ARQUIBANCADA OESTE", "ARQUIBANCADA SUL",
-                                     "CADEIRA ESPECIAL LESTE"]
+SECTIONS_WITH_MEMBERSHIP_DISCOUNT = ["ARQUIBANCADA LESTE LACTA", "ARQUIBANCADA OESTE OURO BRANCO",
+                                     "ARQUIBANCADA NORTE OURO BRANCO", "ARQUIBANCADA SUL DIAMANTE NEGRO",
+                                     "CADEIRA SUPERIOR NORTE OREO"]
 
-SECTIONS_WITHOUT_DISCOUNT = ["ARQUIBANCADA NORTE", "CADEIRA SUPERIOR NORTE", "CADEIRA SUPERIOR SUL",
-                             "CADEIRA ESPECIAL OESTE"]
+SECTIONS_WITHOUT_DISCOUNT = ["ARQUIBANCADA NORTE OURO BRANCO", "ARQUIBANCADA SUL DIAMANTE NEGRO",
+                             "CADEIRA SUPERIOR NORTE OREO",
+                             "CAD. SUP. SUL DIAMANTE NEGRO", "CAD. ESP. OESTE OURO BRANCO"]
 
 # credenciais
 USERNAME: str =
