@@ -89,7 +89,8 @@ class SeleniumDriver:
                     self.driver.refresh()
                     return False
 
-    def add_tickets_to_cart(self, number_of_guests: int, is_without_discount: bool) -> bool:
+    def add_tickets_to_cart(self, membership_holder: bool, number_of_guests: int, is_without_discount: bool,
+                            general_available_tickets: int, half_price_ticket: bool) -> bool:
 
         logging.info("tentando adicionar ingressos ao carrinho")
         if not is_without_discount:  # baita gambiarra por enquanto
@@ -97,15 +98,24 @@ class SeleniumDriver:
                 self.add_membership_tickets(number_of_guests)
             except:
                 logging.info(
-                    "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
+                    "erro ao adicionar ao carrinho ingressos de sócio ou convidado.")
                 self.driver.refresh()
                 return False
-        else:
+        else:  # adicionar ingressos sem desconto como plano B caso não tenha nenhum setor com desconto disponível
             try:
                 self.add_tickets_without_discount(number_of_guests)
             except:
                 logging.info(
-                    "erro ao adicionar ao carrinho (provavelmente \"esgotou\"). tentando outro setor.")
+                    "erro ao adicionar ingressos sem desconto. tentando outro setor.")
+                self.driver.refresh()
+                return False
+        if general_available_tickets > 0 or half_price_ticket:
+            try:
+                self.add_general_available_tickets(general_available_tickets, half_price_ticket,
+                                                   membership_holder)
+            except:
+                logging.info(
+                    "erro ao adicionar ingressos gerais. tentando outro setor.")
                 self.driver.refresh()
                 return False
 
@@ -156,12 +166,35 @@ class SeleniumDriver:
                                                                        timeout=random.randrange(1, 2),
                                                                        element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[1]/div/div/div[2]/div/button[2]/i")
         add_main_ticket_element.click()
+
         for i in range(number_of_guests):
             add_guest_element = self.wait_and_find_clickable_element(method=By.XPATH,
                                                                      timeout=random.randrange(1, 2),
                                                                      element_id_or_xpath="/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[2]/div/div/div[2]/div/button[2]/i")
 
             add_guest_element.click()
+
+    def add_general_available_tickets(self, number_of_general_tickets, include_half_price_ticket,
+                                      membership_holder):
+        general_ticket_element_index = 3 if membership_holder else 1
+        general_ticket_element_xpath = f"/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[{general_ticket_element_index}]/div/div/div[2]/div/button[2]/i"
+
+        add_general_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                          timeout=random.randrange(1, 2),
+                                                                          element_id_or_xpath=general_ticket_element_xpath)
+
+        for i in range(number_of_general_tickets):
+            add_general_ticket_element.click()
+
+        half_price_element_index = general_ticket_element_index + 1
+        half_price_element_xpath = f"/html/body/app-root/app-layout/main/app-page-cart/div[2]/app-products-group/div/div/app-product-item[{half_price_element_index}]/div/div/div[2]/div/button[2]/i"
+
+        if include_half_price_ticket:
+            add_half_price_ticket_element = self.wait_and_find_clickable_element(method=By.XPATH,
+                                                                                 timeout=random.randrange(1, 2),
+                                                                                 element_id_or_xpath=half_price_element_xpath)
+
+            add_half_price_ticket_element.click()
 
     def log_in(self, user: str, password: str):
         # caso esteja "indisponível":
